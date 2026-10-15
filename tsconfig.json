@@ -18,7 +18,8 @@
     "rootDirs": [".", ".react-router/types"],
     "baseUrl": ".",
     "paths": {
-      "server/*": ["server/*"]
+      "server/*": ["server/*"],
+      "app/*": ["app/*"]
     }
   }
 }

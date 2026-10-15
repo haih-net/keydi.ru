@@ -1,7 +1,7 @@
 export const site = {
-  origin: 'https://haih.site',
-  name: 'HAIH',
-  language: 'en',
+  origin: 'https://keydi.ru',
+  name: 'Кейди',
+  language: 'ru',
   description:
     'Building a website with AI, starting from requirements. Explore the working implementation, technology choices, experiments and lessons from HAIH.',
 }

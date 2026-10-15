@@ -49,7 +49,9 @@ async function startServer() {
   const httpServer = createServer(app)
 
   // GraphQL middleware
-  stopGraphql = await setupGraphqlMiddleware(app, httpServer)
+  if (process.env.ENABLE_GRAPHQL === 'true') {
+    stopGraphql = await setupGraphqlMiddleware(app, httpServer)
+  }
 
   const { createRequestHandler } = await import('@react-router/express')
 

@@ -1,69 +1,48 @@
-import { Statistics } from './components/Statistics'
-import { errorPageStatusCode } from './components/Statistics/status'
-import { HtmlStyled } from './components/Layout/styles'
-import { SeoHeaders, unavailableSeoMeta } from './components/seo/SeoHeaders'
-
-export const meta = unavailableSeoMeta
-import type { ReactNode } from 'react'
-import { Layout as SiteLayout } from './components/Layout'
+import type * as React from 'react'
 import {
   Links,
+  Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  isRouteErrorResponse,
   useRouteError,
+  isRouteErrorResponse,
 } from 'react-router'
-
-const betterlyticsId = import.meta.env.BETTERLYTICS_SITE_ID
-
-export function Layout({ children }: { children: ReactNode }) {
-  return (
-    <HtmlStyled lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-        <SeoHeaders />
-        <Links />
-        {betterlyticsId && (
-          <script
-            async
-            src="https://panel.betterlytics.ru/analytics.js"
-            data-site-id={betterlyticsId}
-            data-server-url="https://panel.betterlytics.ru/event"
-          />
-        )}
-      </head>
-      <body>
+import { ThemeProvider } from 'styled-components'
+import { theme } from './Custom/theme'
+import { GlobalStyle } from './Custom/theme/GlobalStyle'
+import { Layout as SiteLayout } from './Custom/components/Layout'
+export const Layout: React.FC<React.PropsWithChildren> = ({ children }) => (
+  <html lang="ru">
+    <head>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <Meta />
+      <Links />
+    </head>
+    <body>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <SiteLayout>{children}</SiteLayout>
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </HtmlStyled>
-  )
-}
+      </ThemeProvider>
+      <ScrollRestoration />
+      <Scripts />
+    </body>
+  </html>
+)
 export default function App() {
-  return (
-    <>
-      <Outlet />
-      <Statistics />
-    </>
-  )
+  return <Outlet />
 }
-
-export function ErrorBoundary() {
+export const ErrorBoundary: React.FC = () => {
   const error = useRouteError()
   return (
     <>
-      <Statistics statusCode={errorPageStatusCode(error)} />
-      <h1 tabIndex={-1}>
+      <h1>
         {isRouteErrorResponse(error)
-          ? `${error.status} ${error.statusText}`
-          : 'Something went wrong'}
+          ? `${error.status} — Страница недоступна`
+          : 'Не удалось открыть страницу'}
       </h1>
-      <p>Please reload the page to retry.</p>
-      <a href="/">Return home</a>
+      <a href="/">На главную</a>
     </>
   )
 }

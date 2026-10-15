@@ -1,5 +1,5 @@
 {
-  "name": "haih-site",
+  "name": "keydi-ru",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -32,7 +32,8 @@
     "e2e": "playwright test",
     "e2e:ui": "playwright test --ui",
     "e2e:webkit": "playwright test --project=webkit",
-    "e2e:report": "playwright show-report"
+    "e2e:report": "playwright show-report",
+    "test:migration": "npm run build && node migration/check.mjs"
   },
   "dependencies": {
     "@apollo/server": "^5.5.1",
@@ -54,7 +55,9 @@
     "react-dom": "19.3.0",
     "react-router": "^8.4.0",
     "sirv": "3.0.2",
-    "vite": "8.3.1"
+    "vite": "8.3.1",
+    "styled-components": "6.1.19",
+    "lucide-react": "0.577.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
